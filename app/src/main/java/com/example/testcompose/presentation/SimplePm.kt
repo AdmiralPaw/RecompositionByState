@@ -24,13 +24,13 @@ class SimplePm(
     )
 
     data class MyState(
-        var listItems: ImmutableList<SomeModel> = persistentListOf(
+        val listItems: ImmutableList<SomeModel> = persistentListOf(
             *buildList {
                 repeat(30) { add(SomeModel(it)) }
             }.toTypedArray()
         ),
-        var someValue: Int = 0,
-        var tick: Boolean = false
+        val someValue: Int = 0,
+        val tick: Boolean = false
     )
 
     init {

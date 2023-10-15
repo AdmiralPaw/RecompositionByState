@@ -44,10 +44,13 @@ private class UIState {
 
 @Composable
 fun Screen (pm: SimplePm) {
-    val time = measureNanoTime {
+
         if (!isOmptimized) {
             val state = pm.stateFlow.collectAsState().value
-            Screen(state = state)
+            val time = measureNanoTime {
+                Screen(state = state)
+            }
+            Log.i("Time", time.toString())
         } else {
             val uiState = UIState.getRememberedState()
 
@@ -59,14 +62,15 @@ fun Screen (pm: SimplePm) {
                     compareBy<SomeModel> { it.property }.thenBy { it.lambda.toString() }
                 )
             }
-            ScreenOpt(
-                uiState.tickValue,
-                uiState.someValue,
-                uiState.listValue
-            )
+            val time = measureNanoTime {
+                ScreenOpt(
+                    uiState.tickValue,
+                    uiState.someValue,
+                    uiState.listValue
+                )
+            }
+            Log.i("Time", time.toString())
         }
-    }
-    Log.i("Time", time.toString())
 }
 
 @Composable

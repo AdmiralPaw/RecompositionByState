@@ -16,13 +16,13 @@ inline fun <T> StateFlow<T>.collectAsStateOptimized(
 
 inline fun <reified T> MutableList<T>.compareUpdateWith(
     newList: List<T>,
-    comparator: Comparator<in T>? = null
+    comparator: Comparator<in T>
 ) {
     if (this.isEmpty() && newList.isEmpty()) return
     newList.forEachIndexed { index, newItem ->
         if (index <= lastIndex) {
             val oldItem = this[index]
-            if (comparator!!.compare(oldItem, newItem) != 0)
+            if (comparator.compare(oldItem, newItem) != 0)
                 this[index] = newItem
         }
         else {
